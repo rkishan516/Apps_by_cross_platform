@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,11 +12,24 @@ class MyApp extends StatefulWidget {
 }
 
 class _earthQuake extends State<MyApp> {
-  List<Earthquake> _list = new List<Earthquake>();
-  int _count;
 
-  String link =
-      'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&minmagnitude=7';
+  @override
+  void initState(){
+    getData();
+  }
+
+  void _launch(String urlString)async{
+    if(await canLaunch(urlString)){
+        await launch(urlString);
+    }else{
+        throw "Can't Process launch url";
+    }
+  }
+
+  List<Earthquake> _list = new List<Earthquake>();
+  int _count = 0;
+  String link = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&minmagnitude=5';
+
   Future<Earthquake> getData() async {
     http.Response response = await http.get(link);
     if (response.statusCode == 200) {
@@ -24,7 +37,7 @@ class _earthQuake extends State<MyApp> {
       _count = earthquakesDetail['metadata']['count'];
       for (int i = 0; i < _count; i++) {
         Earthquake eth = Earthquake.fromJson(earthquakesDetail['features'][i]);
-        _list.add(eth);
+        setState(()=>  _list.add(eth));
       }
     } else {
       throw Exception('Failed to load post');
@@ -43,25 +56,17 @@ class _earthQuake extends State<MyApp> {
         ),
         body: new Container(
           child: new Center(
-            child: new Column(
-              children: <Widget>[
-                new RaisedButton(
-                    onPressed: getData, child: new Text('Get First JSON')),
-                new ListTile(
-                  title: new Text('Goood'),
-                ),
-//                new ListView.builder(
-//                    itemCount: _count,
-//                    itemBuilder: (BuildContext context,int index){
-//                      return new ListTile(
-//                        leading: new CircleAvatar(child: new Text(_list[index].mag.toString()),),
-//                        title: new Text(_list[index].title),
-//                        subtitle: new Text(_list[index].Place),
-//                      );
-//                    }
-//                )
-              ],
-            ),
+            child:  new ListView.builder(
+                   itemCount: _count,
+                   itemBuilder: (BuildContext context,int index){
+                     return new ListTile(
+                       leading: new CircleAvatar(child: new Text(_list[index].mag.toString()),),
+                       title: new Text(_list[index].title),
+                       subtitle: new Text(_list[index].Place),
+                       onTap: () => _launch(_list[index].url),
+                     );
+                   }
+               )
           ),
         ),
       ),
