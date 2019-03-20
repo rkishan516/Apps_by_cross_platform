@@ -1,3 +1,4 @@
+
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -60,7 +61,7 @@ class _earthQuake extends State<MyApp> {
                    itemCount: _count,
                    itemBuilder: (BuildContext context,int index){
                      return new ListTile(
-                       leading: new CircleAvatar(child: new Text(_list[index].mag.toString()),),
+                       leading: new CircleAvatar(child: new Text(_list[index].mag.toString()),backgroundColor: (_list[index].mag > 6) ? Colors.red : Colors.green),
                        title: new Text(_list[index].title),
                        subtitle: new Text(_list[index].Place),
                        onTap: () => _launch(_list[index].url),
