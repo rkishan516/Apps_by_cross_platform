@@ -18,7 +18,7 @@ class _State extends State<MyApp>
 {
   void _launchUrl()
   {
-    _launch('http;//www.google.com');
+    _launch('http://www.google.com');
   }
   void _launchEmail()
   {
