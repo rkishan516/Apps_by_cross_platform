@@ -4,7 +4,7 @@ A  basic flutter app that uses usgs api for recent earthquakes.
 
 # Screenshot
 
-<img src='view/scr1.png' alt='View for this app' />
+<img src='view/scr1.png' alt='View for this app' width="400" height="800" />
 
 ## Getting Started
 
