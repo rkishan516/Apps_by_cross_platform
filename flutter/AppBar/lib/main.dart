@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(
   new MaterialApp(
-    home: new MyApp(),
+    home: MyApp(),
   )
 );
 
@@ -20,10 +20,10 @@ class _State extends State<MyApp>
 
   @override
   void initState() {
-    _items = new List();
-    _items.add(new BottomNavigationBarItem(icon: new Icon(Icons.people), title: new Text('People')));
-    _items.add(new BottomNavigationBarItem(icon: new Icon(Icons.weekend), title: new Text('Weekend')));
-    _items.add(new BottomNavigationBarItem(icon: new Icon(Icons.message), title: new Text('Message')));
+    _items = List();
+    _items.add(BottomNavigationBarItem(icon: Icon(Icons.people), title: Text('People')));
+    _items.add(BottomNavigationBarItem(icon: Icon(Icons.weekend), title: Text('Weekend')));
+    _items.add(BottomNavigationBarItem(icon: Icon(Icons.message), title: Text('Message')));
   }
 
   int _value =0;
@@ -31,54 +31,54 @@ class _State extends State<MyApp>
 
   void _add()=> setState(()=>_value++);
   void _remove()=> setState(()=>_value--);
-  void _onChange() => setState(()=>_value1=new DateTime.now().toString());
+  void _onChange() => setState(()=>_value1= DateTime.now().toString());
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("Hello world"),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Hello world"),
         backgroundColor: Colors.red,
       actions: <Widget>[
-          new IconButton(icon: new Icon(Icons.add), onPressed: _add),
-          new IconButton(icon: new Icon(Icons.remove), onPressed: _remove),
+          IconButton(icon: Icon(Icons.add), onPressed: _add),
+          IconButton(icon: Icon(Icons.remove), onPressed: _remove),
         ],
       ),
-      floatingActionButton: new FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
           onPressed: _onChange,
           backgroundColor: Colors.red,
           mini: true,
-          child: new Icon(Icons.timer),
+          child: Icon(Icons.timer),
       ),
-      drawer: new Drawer(
-        child: new Container(
-          padding: new EdgeInsets.all(32.0),
-          child: new Column(
+      drawer: Drawer(
+        child: Container(
+          padding: EdgeInsets.all(32.0),
+          child: Column(
             children: <Widget>[
-              new Text('Hello Drawer'),
-              new RaisedButton(onPressed: () => Navigator.pop(context), child: new Text('Close Drawer'),)
+              Text('Hello Drawer'),
+              RaisedButton(onPressed: () => Navigator.pop(context), child: Text('Close Drawer'),)
             ],
           ),
         ),
       ),
       persistentFooterButtons: <Widget>[
-        new IconButton(icon: new Icon(Icons.timer), onPressed: _onChange),
-        new IconButton(icon: new Icon(Icons.add), onPressed: _add),
-        new IconButton(icon: new Icon(Icons.remove), onPressed: _remove),
+        IconButton(icon: Icon(Icons.timer), onPressed: _onChange),
+        IconButton(icon: Icon(Icons.add), onPressed: _add),
+        IconButton(icon: Icon(Icons.remove), onPressed: _remove),
       ],
-      body: new Container(
+      body: Container(
         padding: const EdgeInsets.all(32.0),
-        child: new Center(
-          child: new Column(
+        child: Center(
+          child: Column(
             children: <Widget>[
-              new Text(_value.toString(),style: new TextStyle(fontWeight: FontWeight.bold,fontSize: 32.0),),
-              new Text("Timer : ${_value1}"),
-              new Text(_values),
+              Text(_value.toString(),style: TextStyle(fontWeight: FontWeight.bold,fontSize: 32.0),),
+              Text("Timer : ${_value1}"),
+              Text(_values),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: new BottomNavigationBar(
+      bottomNavigationBar: BottomNavigationBar(
         items: _items,
         fixedColor: Colors.blue,
         currentIndex: _index,
